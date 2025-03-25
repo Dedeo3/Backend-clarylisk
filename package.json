@@ -1,7 +1,7 @@
 {
   "name": "backend-clarylisk",
   "version": "1.0.0",
-  "description": "```json\r ER diagram for backend:\r https://drive.google.com/file/d/1KurwPZ5nijn0efekE1CY-hqMWTnSp8Ge/view?usp=sharing",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
