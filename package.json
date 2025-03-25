@@ -1,0 +1,23 @@
+{
+  "name": "backend-clarylisk",
+  "version": "1.0.0",
+  "description": "```json\r ER diagram for backend:\r https://drive.google.com/file/d/1KurwPZ5nijn0efekE1CY-hqMWTnSp8Ge/view?usp=sharing",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "server": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "test"
+  },
+  "author": "clarylisk",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "joi": "^17.13.3",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.5.0"
+  }
+}
