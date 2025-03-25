@@ -2,7 +2,7 @@
 
 ```json
 ER diagram for backend:
-https://drive.google.com/file/d/1KurwPZ5nijn0efekE1CY-hqMWTnSp8Ge/view?usp=sharing
+<a href="https://drive.google.com/file/d/1KurwPZ5nijn0efekE1CY-hqMWTnSp8Ge/view?usp=sharing">ERD klik<a/>
 
 ```
 # How to run
