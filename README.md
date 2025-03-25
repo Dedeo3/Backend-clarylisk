@@ -184,6 +184,4 @@ response status 404:
 ```
 
 ### validation for rating
-```json
 if the creator take a donation that indicated judol so they rating will be minus 1
-```
