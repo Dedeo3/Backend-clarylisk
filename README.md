@@ -1,12 +1,12 @@
 # Backend-ClaryLisk
 
-```
-ER diagram for backend:
-<a href="https://drive.google.com/file/d/1KurwPZ5nijn0efekE1CY-hqMWTnSp8Ge/view?usp=sharing">ERD klik<a/>
-```
+# ER Diagram
+ER diagram for backend:  
+[ERD klik](https://drive.google.com/file/d/1KurwPZ5nijn0efekE1CY-hqMWTnSp8Ge/view?usp=sharing)
+
 # How to run
 ```
-npm run server
+npm run server or npm run dev
 
 ```
 
