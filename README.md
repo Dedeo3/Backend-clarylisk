@@ -185,3 +185,5 @@ response status 404:
 
 ### validation for rating
 if the creator take a donation that indicated judol so they rating will be minus 1
+
+## IF YOU WANTE TO TEST API YOU CAN GET /api-docs-clarylisk/#/User
