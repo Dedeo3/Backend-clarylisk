@@ -1,14 +1,27 @@
-import {express} from 'express';
-import { swaggerUi } from 'swagger-ui-express';
-import { swaggerJsDoc } from 'swagger-jsdoc';
-import 'dotenv/config'
+import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import cors from 'cors'
+import cookieParser from 'cookie-parser';
+import 'dotenv/config';
+import userRoutes from './routes/userRoutes.js'
+
 
 const app= express();
+app.use(express.json());
+app.use(cookieParser());
 
+// const corsOptions = {
+//     origin: process.env.ALLOWED_CORS?.split(',') || '',
+//     credentials: true, // Wajib untuk mengizinkan cookie
+// }
+
+// app.use(cors(corsOptions));
+app.use(cors())
 
 const swaggerOptions = {
     swaggerDefinition: {
-        myapi: '3.0.0',
+        openapi: '3.0.0',
         info: {
             title: 'Clarylisk API',
             version: '1.0.0',
@@ -25,6 +38,10 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
+app.use('/api-docs-clarylisk', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+app.use('/user',userRoutes)
+
 app.listen(process.env.PORT, () => {
-    console.log('App listening on port 3000!');
+    console.log(`App listening on port ${process.env.PORT}!`);
 });
