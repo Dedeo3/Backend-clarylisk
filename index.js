@@ -19,24 +19,24 @@ app.use(errorMiddleware)
 
 const allowedOrigins = process.env.ALLOWED_CORS?.split(',') || [];
 
-const corsOptions = {
-    origin: function (origin, callback) {
-        const isSwagger = !origin || origin.includes("swagger");
-        if (isSwagger || allowedOrigins.includes(origin)) {
-            console.log("CORS Allowed:", origin || "No Origin (Swagger?)");
-            callback(null, true);
-        } else {
-            console.error("Blocked by CORS:", origin);
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-};
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         const isSwagger = !origin || origin.includes("swagger");
+//         if (isSwagger || allowedOrigins.includes(origin)) {
+//             console.log("CORS Allowed:", origin || "No Origin (Swagger?)");
+//             callback(null, true);
+//         } else {
+//             console.error("Blocked by CORS:", origin);
+//             callback(new Error("Not allowed by CORS"));
+//         }
+//     },
+//     credentials: true,
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+// };
 
 
-app.use(cors(corsOptions));
-// app.use(cors())
+// app.use(cors(corsOptions));
+app.use(cors())
 
 //ADD STATIC SWAGGER
 const __filename = fileURLToPath(import.meta.url);
