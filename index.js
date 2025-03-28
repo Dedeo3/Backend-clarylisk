@@ -5,6 +5,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import userRoutes from './routes/userRoutes.js'
+import aiRoutes from './routes/aiRoutes.js';
 import { errorMiddleware } from './middleware/errorMiddleware.js';
 
 
@@ -45,7 +46,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs-clarylisk', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/user',userRoutes)
-
+app.use('/ai',aiRoutes)
 app.listen(process.env.PORT, () => {
     console.log(`App listening on port ${process.env.PORT}!`);
 });
