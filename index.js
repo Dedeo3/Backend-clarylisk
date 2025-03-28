@@ -17,13 +17,16 @@ app.use(cookieParser());
 app.use(errorMiddleware)
 
 
-const allowedOrigins = [
-    ...process.env.ALLOWED_CORS?.split(',') || [],
-    ...process.env.BASE_URL_APP?.split(',') || []
-];
+const allowedOrigins = process.env.ALLOWED_CORS?.split(',') || [];
 
 const corsOptions = {
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
