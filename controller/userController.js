@@ -25,13 +25,13 @@ export const loginUser=async(req,res, next)=>{
         }
 
         //ini buat pas tes local
-        // res.cookie("access_token", result.token, {
-        //     httpOnly: false,
-        //     secure: false, // Gunakan HTTPS hanya di produksi
-        //     sameSite: process.env.SAMESITE,
-        //     // domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined,
-        //     maxAge: 8 * 60 * 60 * 1000, // 8 jam
-        // });
+        res.cookie("access_token", result.token, {
+            httpOnly: false,
+            secure: false, // http
+            sameSite: process.env.SAMESITE,
+            // domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined,
+            maxAge: 8 * 60 * 60 * 1000, // 8 jam
+        });
 
         //ini pas dah deploy
         res.cookie("access_token", result.token, {
@@ -41,6 +41,7 @@ export const loginUser=async(req,res, next)=>{
           domain: process.env.NODE_ENV === 'PROD' ? process.env.DOMAIN : undefined,
           maxAge: 8 * 60 * 60 * 1000, // 8 jam
         });
+
         console.log("Set-Cookie Header:", res.getHeaders()['set-cookie']);
         console.log("token:", result.token)
         
