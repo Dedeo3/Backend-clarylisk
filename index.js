@@ -5,11 +5,15 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import userRoutes from './routes/userRoutes.js'
+import { errorMiddleware } from './middleware/errorMiddleware.js';
 
 
 const app= express();
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(errorMiddleware)
+
 
 // const corsOptions = {
 //     origin: process.env.ALLOWED_CORS?.split(',') || '',

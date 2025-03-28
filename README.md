@@ -11,6 +11,12 @@ npm run server or npm run dev
 ```
 
 # Endpoint
+
+## Swagger
+
+### get /api-docs-clarylisk
+- Description: Swagger API Documentation
+
 ## AI 
 
 ### post /ai-clarylisk
@@ -90,12 +96,7 @@ request body:
 ```
 response status 200:
 ```json
-set cookie token
-{
-    "message": "success login",
-    "username":"name"
-    "idUser":1,
-}
+set cookie token and redirect url
 ```
 response status 500:
 ```json

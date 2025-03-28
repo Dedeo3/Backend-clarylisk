@@ -12,3 +12,8 @@ export const regisValidation= Joi.object({
     twitter:Joi.string().allow(null,''),
     youtube:Joi.string().allow(null,'')
 })
+
+export const loginValidation= Joi.object({
+    walletAddress:Joi.string().required(),
+    password: Joi.string().required().max(8)
+})

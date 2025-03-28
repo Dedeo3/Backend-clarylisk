@@ -1,7 +1,7 @@
 
 export default class responseError extends Error{
-    constructor(status,msg){
-        super(msg);
+    constructor(status,message){
+        super(message);
         this.status=status 
     }
 }
