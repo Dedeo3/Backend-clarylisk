@@ -7,7 +7,8 @@ import 'dotenv/config';
 import userRoutes from './routes/userRoutes.js'
 import aiRoutes from './routes/aiRoutes.js';
 import { errorMiddleware } from './middleware/errorMiddleware.js';
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app= express();
 app.use(express.json());
@@ -24,6 +25,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // app.use(cors())
 
+//ADD STATIC SWAGGER
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const __swaggerDistPath = path.join(__dirname, 'node_modules', 'swagger-ui-dist');
+app.use('/api-docs-clarylisk', express.static(__swaggerDistPath)); // Sajikan file statis Swagger
+
+// Konfigurasi Swagger
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -40,6 +48,8 @@ const swaggerOptions = {
     },
     apis: ['./routes/*.js'], // files containing annotations as above
 };
+
+// app.use('/api-docs-clarylisk', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
