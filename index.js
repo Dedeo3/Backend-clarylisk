@@ -16,13 +16,13 @@ app.use(cookieParser());
 app.use(errorMiddleware)
 
 
-// const corsOptions = {
-//     origin: process.env.ALLOWED_CORS?.split(',') || '',
-//     credentials: true, // Wajib untuk mengizinkan cookie
-// }
+const corsOptions = {
+    origin: process.env.ALLOWED_CORS?.split(',') || '',
+    credentials: true, // Wajib untuk mengizinkan cookie
+}
 
-// app.use(cors(corsOptions));
-app.use(cors())
+app.use(cors(corsOptions));
+// app.use(cors())
 
 const swaggerOptions = {
     swaggerDefinition: {
