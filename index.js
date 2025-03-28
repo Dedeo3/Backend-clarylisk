@@ -18,8 +18,9 @@ app.use(errorMiddleware)
 
 
 const corsOptions = {
-    origin: process.env.ALLOWED_CORS?.split(',') || '',
+    origin: [process.env.ALLOWED_CORS?.split(','),process.env.BASE_URL_APP?.split(',')],
     credentials: true, // Wajib untuk mengizinkan cookie
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 }
 
 app.use(cors(corsOptions));
