@@ -17,11 +17,16 @@ app.use(cookieParser());
 app.use(errorMiddleware)
 
 
+const allowedOrigins = [
+    ...process.env.ALLOWED_CORS?.split(',') || [],
+    ...process.env.BASE_URL_APP?.split(',') || []
+];
+
 const corsOptions = {
-    origin: [process.env.ALLOWED_CORS?.split(','),process.env.BASE_URL_APP?.split(',')],
-    credentials: true, // Wajib untuk mengizinkan cookie
+    origin: allowedOrigins,
+    credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-}
+};
 
 app.use(cors(corsOptions));
 // app.use(cors())
