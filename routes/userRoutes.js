@@ -35,9 +35,8 @@ const userRoutes = express.Router();
  *                 example: "john_doe"
  *               password:
  *                 type: string
- *                 minLength: 8
- *                 maxLength: 32
- *                 example: "SecurePassword123!"
+ *                 maxLength: 8
+ *                 example: "12345678"
  *               description:
  *                 type: string
  *                 example: "A passionate developer"
@@ -85,9 +84,6 @@ const userRoutes = express.Router();
  *                     username:
  *                       type: string
  *                       example: "john_doe"
- *                     role:
- *                       type: string
- *                       example: "creator"
  *       400:
  *         description: Invalid request payload
  *       500:
