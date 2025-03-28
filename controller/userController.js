@@ -23,22 +23,22 @@ export const loginUser=async(req,res, next)=>{
         if(!result.token){
             throw new responseError(404,"token not found")
         }
-        
-        // ini buat pas udah deploy
-        // res.cookie("access_token", access_token, {
-        //     httpOnly: process.env.HTTPONLY,
-        //     secure: process.env.NODE_ENV === 'production', // Wajib pakai HTTPS
-        //     sameSite: process.env.SAMESITE, // Cukup untuk subdomain
-        //     domain: process.env.DOMAIN,
+
+        //ini buat pas tes local
+        // res.cookie("access_token", result.token, {
+        //     httpOnly: false,
+        //     secure: false, // Gunakan HTTPS hanya di produksi
+        //     sameSite: process.env.SAMESITE,
+        //     // domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined,
         //     maxAge: 8 * 60 * 60 * 1000, // 8 jam
         // });
 
-        //ini buat pas tes local
+        //ini pas dah deploy
         res.cookie("access_token", result.token, {
-          httpOnly: false,
-          secure: false, // Gunakan HTTPS hanya di produksi
+          httpOnly: process.env.httpOnly,
+            secure: process.env.NODE_ENV === 'PROD', // Gunakan HTTPS hanya di produksi
           sameSite: process.env.SAMESITE,
-          // domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : undefined,
+          domain: process.env.NODE_ENV === 'PROD' ? process.env.DOMAIN : undefined,
           maxAge: 8 * 60 * 60 * 1000, // 8 jam
         });
         console.log("Set-Cookie Header:", res.getHeaders()['set-cookie']);
