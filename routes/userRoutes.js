@@ -187,5 +187,82 @@ userRoutes.post('/login', controller.loginUser);
 userRoutes.get('/tesMiddleware',validateToken,controller.validateMidTest)
 
 
+/**
+ * @swagger
+ * /user/profile:
+ *   get:
+ *     summary: Get user profile
+ *     description: Retrieves the profile information of the authenticated user.
+ *     tags:
+ *       - User
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved user profile.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                   example: "john_doe"
+ *                 role:
+ *                   type: string
+ *                   example: "creator"
+ *                 description:
+ *                   type: string
+ *                   example: "A passionate developer"
+ *                 wallet:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       walletAdress:
+ *                         type: string
+ *                         example: "0x123abc456def"
+ *                 medsos:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       facebook:
+ *                         type: string
+ *                         example: "https://facebook.com/johndoe"
+ *                       twitter:
+ *                         type: string
+ *                         example: "https://twitter.com/johndoe"
+ *                       instagram:
+ *                         type: string
+ *                         example: "https://instagram.com/johndoe"
+ *                       youtube:
+ *                         type: string
+ *                         example: "https://youtube.com/johndoe"
+ *                 image:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       image:
+ *                         type: string
+ *                         format: uri
+ *                         example: "https://example.com/avatar.png"
+ *       401:
+ *         description: Unauthorized, missing or invalid token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "null auth"
+ *       500:
+ *         description: Internal server error
+ */
+
+
+userRoutes.get('/profile', validateToken, controller.profile)
 
 export default userRoutes;

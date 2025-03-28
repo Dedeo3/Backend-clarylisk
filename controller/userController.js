@@ -2,6 +2,7 @@ import responseError from "../error/responseError.js";
 import { register } from "../service/userService.js";
 import { login } from "../service/userService.js";
 import { tesMiddleware } from "../service/userService.js";
+import { getProfile } from "../service/userService.js";
 import 'dotenv/config';
 export const registerUser= async(req, res, next)=>{
     try{
@@ -54,4 +55,14 @@ export const validateMidTest=async(req, res)=>{
     console.log("user controller:",req.user)
     const result= await tesMiddleware(req.user)
     res.status(200).json({result:result})
+}
+
+export const profile=async(req,res, next)=>{
+    try {
+        const result = await getProfile(req)
+        res.status(200).json(result)
+    } catch (err) {
+        console.error("Error get profile:", err);
+        next(err)
+    }
 }

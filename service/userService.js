@@ -112,3 +112,44 @@ export const tesMiddleware= async(req)=>{
         }
     }
 }
+
+export const getProfile=async(req)=>{
+    const userSession= req.user
+    // console.log("user profile req:", userSession)
+
+    const getData = await prisma.user.findFirst({
+        where: {
+            username: userSession.username
+        },
+        select: {
+            username: true,
+            role: true,
+            description: true,
+            wallet: {
+                select: {
+                    walletAdress: true
+                }
+            },
+            medsos: {
+                select: {
+                    facebook: true,
+                    twitter: true,
+                    instagram: true,
+                    youtube: true
+                }
+            },
+            image: {
+                select: {
+                    image: true
+                }
+            }
+        }
+    });
+
+   
+    if (!getData) {
+        return null;
+    }
+
+    return getData
+}
