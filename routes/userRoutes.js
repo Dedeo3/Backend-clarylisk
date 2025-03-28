@@ -186,4 +186,6 @@ userRoutes.post('/login', controller.loginUser);
  */
 userRoutes.get('/tesMiddleware',validateToken,controller.validateMidTest)
 
+
+
 export default userRoutes;

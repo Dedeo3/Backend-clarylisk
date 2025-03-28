@@ -19,12 +19,12 @@ npm run server or npm run dev
 
 ## AI 
 
-### post /ai-clarylisk
+### post /ai/ai-clarylisk
 request headers: token
 request body:
 ```json
 {
-     "text":"jp nih"
+     "text":"gw jp 100j"
 }
 ```
 response status 200:
