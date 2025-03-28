@@ -105,6 +105,33 @@ response status 500:
 }
 ```
 
+### get /user/profile
+response status 200:
+```json
+{
+  "username": "john_doe",
+  "role": "creator",
+  "description": "A passionate developer",
+  "wallet": [
+    {
+      "walletAdress": "0x123abc456def"
+    }
+  ],
+  "medsos": [
+    {
+      "facebook": "https://facebook.com/johndoe",
+      "twitter": "https://twitter.com/johndoe",
+      "instagram": "https://instagram.com/johndoe",
+      "youtube": "https://youtube.com/johndoe"
+    }
+  ],
+  "image": [
+    {
+      "image": "https://example.com/avatar.png"
+    }
+  ]
+}
+```
 ### delete user/logout/:idUser
 response status 200:
 revoke token
