@@ -42,7 +42,7 @@ model photo{
 
 model wallet{
   idWallet Int @unique @id @default(autoincrement())
-  walletAdress String
+  walletAdress String @unique
   idUser Int @unique
   userWallet user @relation(fields: [idUser],references: [idUser],onDelete: Cascade,onUpdate: Cascade)
 }
