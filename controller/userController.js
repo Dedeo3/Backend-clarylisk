@@ -34,13 +34,13 @@ export const loginUser=async(req,res, next)=>{
         });
 
         //ini pas dah deploy
-        res.cookie("access_token", result.token, {
-          httpOnly: process.env.httpOnly,
-            secure: process.env.NODE_ENV === 'PROD', // Gunakan HTTPS hanya di produksi
-          sameSite: process.env.SAMESITE,
-          domain: process.env.NODE_ENV === 'PROD' ? process.env.DOMAIN : undefined,
-          maxAge: 8 * 60 * 60 * 1000, // 8 jam
-        });
+        // res.cookie("access_token", result.token, {
+        //   httpOnly: process.env.httpOnly,
+        //     secure: process.env.NODE_ENV === 'PROD', // Gunakan HTTPS hanya di produksi
+        //   sameSite: process.env.SAMESITE,
+        //   domain: process.env.NODE_ENV === 'PROD' ? process.env.DOMAIN : undefined,
+        //   maxAge: 8 * 60 * 60 * 1000, // 8 jam
+        // });
 
         console.log("Set-Cookie Header:", res.getHeaders()['set-cookie']);
         console.log("token:", result.token)

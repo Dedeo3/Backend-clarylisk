@@ -8,18 +8,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
-//ini buat tes local
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
+// ini buat tes local
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 //ini pas deploy
-datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_URL")
+//   directUrl = env("DIRECT_URL")
+// }
 
 model user{
   idUser Int @unique @id @default(autoincrement())
