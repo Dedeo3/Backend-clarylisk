@@ -9,7 +9,7 @@ import aiRoutes from "./routes/aiRoutes.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { creatorList } from "./controller/userController.js";
+import { creatorList, getCreatorById } from "./controller/userController.js";
 
 const app = express();
 app.use(express.json());
@@ -78,6 +78,7 @@ app.use("/api-docs-clarylisk", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/user", userRoutes);
 app.use("/ai", aiRoutes);
 app.get("/listcreator", creatorList);
+app.get("/listcreator/:userId", getCreatorById);
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
 });

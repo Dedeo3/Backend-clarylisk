@@ -120,6 +120,7 @@ export const getProfile = async (req) => {
       username: userSession.username,
     },
     select: {
+      idUser: true,
       username: true,
       role: true,
       description: true,
@@ -154,7 +155,11 @@ export const getProfile = async (req) => {
 // create function to get all user, include wallet, medsos, and image
 export const getCreators = async () => {
   const getData = await prisma.user.findMany({
+    where: {
+      role: "creator",
+    },
     select: {
+      idUser: true,
       username: true,
       role: true,
       description: true,
@@ -187,4 +192,43 @@ export const getCreators = async () => {
     total: getData.length,
     data: getData,
   };
+};
+
+// create function to get user by id, include wallet, medsos, and image
+export const getCreatorProfile = async (id) => {
+  const getData = await prisma.user.findFirst({
+    where: {
+      idUser: id,
+      role: "creator",
+    },
+    select: {
+      idUser: true,
+      username: true,
+      role: true,
+      description: true,
+      wallet: {
+        select: {
+          walletAdress: true,
+        },
+      },
+      medsos: {
+        select: {
+          facebook: true,
+          twitter: true,
+          instagram: true,
+          youtube: true,
+        },
+      },
+      image: {
+        select: {
+          image: true,
+        },
+      },
+    },
+  });
+
+  if (!getData) {
+    return null;
+  }
+  return getData;
 };

@@ -2,7 +2,7 @@ import responseError from "../error/responseError.js";
 import { getCreators, register } from "../service/userService.js";
 import { login } from "../service/userService.js";
 import { tesMiddleware } from "../service/userService.js";
-import { getProfile } from "../service/userService.js";
+import { getProfile, getCreatorProfile } from "../service/userService.js";
 import "dotenv/config";
 
 export const registerUser = async (req, res, next) => {
@@ -76,6 +76,17 @@ export const creatorList = async (req, res, next) => {
     res.status(200).json(result);
   } catch (err) {
     console.error("Error get creator list:", err);
+    next(err);
+  }
+};
+
+export const getCreatorById = async (req, res, next) => {
+  try {
+    const userId = req.params.idUser;
+    const result = await getCreatorProfile(userId);
+    res.status(200).json(result);
+  } catch (err) {
+    console.error("Error get user by id:", err);
     next(err);
   }
 };
