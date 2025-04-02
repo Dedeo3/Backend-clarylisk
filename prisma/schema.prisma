@@ -18,41 +18,41 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
-model user{
-  idUser Int @unique @id @default(autoincrement())
-  password String 
+model user {
+  idUser      Int           @id @unique @default(autoincrement())
+  password    String
   description String
-  rating Int @default(5)
-  username String
-  image photo[]
-  wallet wallet[]
-  medsos mediaSocial[]
-  role String
+  rating      Int           @default(5)
+  username    String
+  image       photo[]
+  wallet      wallet[]
+  medsos      mediaSocial[]
+  role        String
 }
 
-model photo{
-  idImage Int @unique @id @default(autoincrement())
-  image String
-  idUser Int @unique
-  userPhoto user @relation(fields: [idUser], references: [idUser],onDelete: Cascade,onUpdate: Cascade)
+model photo {
+  idImage   Int    @id @unique @default(autoincrement())
+  image     String
+  idUser    Int    @unique
+  userPhoto user   @relation(fields: [idUser], references: [idUser], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model wallet{
-  idWallet Int @unique @id @default(autoincrement())
+model wallet {
+  idWallet     Int    @id @unique @default(autoincrement())
   walletAdress String @unique
-  idUser Int @unique
-  userWallet user @relation(fields: [idUser],references: [idUser],onDelete: Cascade,onUpdate: Cascade)
+  idUser       Int    @unique
+  userWallet   user   @relation(fields: [idUser], references: [idUser], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model mediaSocial{
-  idMedsos Int @unique @id @default(autoincrement())
-  facebook String?
-  twitter String?
+model mediaSocial {
+  idMedsos  Int     @id @unique @default(autoincrement())
+  facebook  String?
+  twitter   String?
   instagram String?
-  youtube String?
-  idUser Int @unique
-  userMedia user @relation(fields: [idUser], references: [idUser],onDelete: Cascade,onUpdate: Cascade)
+  youtube   String?
+  idUser    Int     @unique
+  userMedia user    @relation(fields: [idUser], references: [idUser], onDelete: Cascade, onUpdate: Cascade)
 }

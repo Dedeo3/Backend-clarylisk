@@ -1,6 +1,6 @@
-import express from 'express';
+import express from "express";
 import * as controller from "../controller/userController.js";
-import { validateToken } from '../middleware/middleware.js';
+import { validateToken } from "../middleware/middleware.js";
 const userRoutes = express.Router();
 
 /**
@@ -90,7 +90,7 @@ const userRoutes = express.Router();
  *         description: Internal server error
  */
 
-userRoutes.post('/register', controller.registerUser);
+userRoutes.post("/register", controller.registerUser);
 
 /**
  * @swagger
@@ -141,7 +141,7 @@ userRoutes.post('/register', controller.registerUser);
  *         description: Internal server error
  */
 
-userRoutes.post('/login', controller.loginUser);
+userRoutes.post("/login", controller.loginUser);
 
 /**
  * @swagger
@@ -180,8 +180,7 @@ userRoutes.post('/login', controller.loginUser);
  *       500:
  *         description: Internal server error
  */
-userRoutes.get('/tesMiddleware',validateToken,controller.validateMidTest)
-
+userRoutes.get("/tesMiddleware", validateToken, controller.validateMidTest);
 
 /**
  * @swagger
@@ -258,7 +257,6 @@ userRoutes.get('/tesMiddleware',validateToken,controller.validateMidTest)
  *         description: Internal server error
  */
 
-
-userRoutes.get('/profile', validateToken, controller.profile)
+userRoutes.get("/profile", validateToken, controller.profile);
 
 export default userRoutes;
