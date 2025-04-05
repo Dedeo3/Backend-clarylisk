@@ -3,6 +3,8 @@ import {
   getCreators,
   register,
   updateProfile,
+  cekDataRequest,
+  destroySession,
 } from "../service/userService.js";
 import { login } from "../service/userService.js";
 import { tesMiddleware } from "../service/userService.js";
@@ -109,5 +111,27 @@ export const editProfile = async (req, res, next) => {
   } catch (err) {
     console.error("Error update profile:", err);
     next(err);
+  }
+};
+
+export const logout = async (req, res, next) => {
+  try {
+    const result = await destroySession(req, res);
+
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error("Error logout:", err);
+    next(err);
+  }
+};
+
+export const cekData = async (req, res, next) => {
+  try {
+    const result = await cekDataRequest(req);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    console.error("Error update profile:", err);
   }
 };

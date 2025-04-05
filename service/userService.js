@@ -360,3 +360,33 @@ export const updateProfile = async (userSession, data) => {
 
   return result;
 };
+
+export const destroySession = async (req, res) => {
+  const accessToken = req.cookies.access_token;
+
+  if (!accessToken) {
+    return {
+      message: "no access token",
+      success: false,
+    };
+  }
+
+  res.clearCookie("access_token");
+  return {
+    message: "success logout",
+    success: true,
+  };
+};
+
+export const cekDataRequest = async (req) => {
+  // ambil data dari cookie
+  const cookie = req.cookies;
+  const sessionUser = req.user;
+  const authorization = req.headers.authorization;
+
+  return {
+    cookie,
+    sessionUser,
+    authorization,
+  };
+};
