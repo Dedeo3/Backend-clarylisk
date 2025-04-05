@@ -1,5 +1,9 @@
 import responseError from "../error/responseError.js";
-import { getCreators, register } from "../service/userService.js";
+import {
+  getCreators,
+  register,
+  updateProfile,
+} from "../service/userService.js";
 import { login } from "../service/userService.js";
 import { tesMiddleware } from "../service/userService.js";
 import { getProfile, getCreatorProfile } from "../service/userService.js";
@@ -87,6 +91,23 @@ export const getCreatorById = async (req, res, next) => {
     res.status(200).json(result);
   } catch (err) {
     console.error("Error get user by id:", err);
+    next(err);
+  }
+};
+
+export const editProfile = async (req, res, next) => {
+  try {
+    const request = req.body;
+    const userSession = req.user;
+
+    const result = await updateProfile(userSession, request);
+    const { password, ...rest } = result;
+    res.status(200).json({
+      message: "success update profile",
+      data: rest,
+    });
+  } catch (err) {
+    console.error("Error update profile:", err);
     next(err);
   }
 };

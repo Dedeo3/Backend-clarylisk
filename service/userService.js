@@ -232,3 +232,131 @@ export const getCreatorProfile = async (id) => {
   }
   return getData;
 };
+
+// create function to update user profile, include wallet, medsos, and image
+export const updateProfile = async (userSession, data) => {
+  const userExist = await prisma.user.findFirst({
+    where: {
+      username: userSession.username,
+    },
+  });
+
+  if (!userExist) {
+    throw new responseError(404, "user not found");
+  }
+
+  // check if password is not null, then hash the password
+  if (data.password) {
+    data.password = await bcrypt.hash(data.password, 10);
+  }
+
+  if (data.walletAddress) {
+    await prisma.wallet.update({
+      where: {
+        idUser: userExist.idUser,
+      },
+      data: {
+        walletAdress: data.walletAddress,
+      },
+    });
+  }
+
+  if (data.facebook) {
+    await prisma.mediaSocial.update({
+      where: {
+        idUser: userExist.idUser,
+      },
+      data: {
+        facebook: data.facebook,
+      },
+    });
+  }
+
+  if (data.twitter) {
+    await prisma.mediaSocial.update({
+      where: {
+        idUser: userExist.idUser,
+      },
+      data: {
+        twitter: data.twitter,
+      },
+    });
+  }
+
+  if (data.instagram) {
+    await prisma.mediaSocial.update({
+      where: {
+        idUser: userExist.idUser,
+      },
+      data: {
+        instagram: data.instagram,
+      },
+    });
+  }
+
+  if (data.youtube) {
+    await prisma.mediaSocial.update({
+      where: {
+        idUser: userExist.idUser,
+      },
+      data: {
+        youtube: data.youtube,
+      },
+    });
+  }
+
+  if (data.image) {
+    await prisma.photo.update({
+      where: {
+        idUser: userExist.idUser,
+      },
+      data: {
+        image: data.image,
+      },
+    });
+  }
+
+  data.description = data.description || userExist.description;
+  data.role = data.role || userExist.role;
+
+  if (data.password) {
+    data.password = await bcrypt.hash(data.password, 10);
+  }
+
+  const result = await prisma.user.update({
+    where: {
+      idUser: userExist.idUser, // Use idUser field with idUser value
+    },
+    data: {
+      description: data.description,
+      password: data.password,
+      role: data.role,
+    },
+    select: {
+      idUser: true,
+      username: true,
+      role: true,
+      description: true,
+      wallet: {
+        select: {
+          walletAdress: true,
+        },
+      },
+      medsos: {
+        select: {
+          facebook: true,
+          twitter: true,
+          instagram: true,
+          youtube: true,
+        },
+      },
+      image: {
+        select: {
+          image: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};

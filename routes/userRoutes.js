@@ -258,5 +258,6 @@ userRoutes.get("/tesMiddleware", validateToken, controller.validateMidTest);
  */
 
 userRoutes.get("/profile", validateToken, controller.profile);
+userRoutes.patch("/profile", validateToken, controller.editProfile);
 
 export default userRoutes;
