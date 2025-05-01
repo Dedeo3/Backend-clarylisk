@@ -102,5 +102,5 @@ app.use("/creators", creatorRoutes);
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
-  console.log(App listening on port ${ process.env.PORT }!);
+  console.log(`App listening on port ${ process.env.PORT }!`);
 });
