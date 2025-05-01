@@ -80,12 +80,23 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // 5. CORS debugging endpoint
 app.get('/debug-cors', (req, res) => {
-  res.json({
-    requestOrigin: req.headers.origin || 'No origin',
-    allowedOrigins: process.env.ALLOWED_CORS?.split(",") || [],
-    nodeEnv: process.env.NODE_ENV,
-    allowedCorsEnv: process.env.ALLOWED_CORS
-  });
+  try {
+    const allowedCorsEnv = process.env.ALLOWED_CORS || '';
+    const allowedOrigins = allowedCorsEnv ? allowedCorsEnv.split(",") : [];
+
+    res.json({
+      requestOrigin: req.headers.origin || 'No origin',
+      allowedOrigins: allowedOrigins,
+      nodeEnv: process.env.NODE_ENV || 'Not defined',
+      allowedCorsEnv: allowedCorsEnv || 'Not defined'
+    });
+  } catch (error) {
+    console.error("Error in debug-cors endpoint:", error);
+    res.status(500).json({
+      error: "Internal server error",
+      message: error.message
+    });
+  }
 });
 
 app.get("/", (req, res) => {
