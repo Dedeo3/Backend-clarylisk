@@ -23,30 +23,34 @@ app.use((req, res, next) => {
   next();
 });
 
-// 3. CORS configuration
-const allowedOrigins = process.env.ALLOWED_CORS?.split(",") || ["http://localhost:3000"];
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests without origin (e.g., Swagger or curl)
-    if (!origin || allowedOrigins.includes(origin)) {
-      console.log("CORS Allowed:", origin || "No Origin");
-      callback(null, true);
-    } else {
-      console.error("Blocked by CORS:", origin);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-};
+// // 3. CORS configuration
+// const allowedOrigins = process.env.ALLOWED_CORS?.split(",") || ["http://localhost:3000"];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     // Allow requests without origin (e.g., Swagger or curl)
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       console.log("CORS Allowed:", origin || "No Origin");
+//       callback(null, true);
+//     } else {
+//       console.error("Blocked by CORS:", origin);
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+// };
 
 // Handle OPTIONS preflight requests
-app.options('*', cors(corsOptions));
-app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
+// app.use(cors(corsOptions));
+
+///////////////////////////////////////////////////////////////////
+app.use(cors({ credentials: true, origin: "http://localhost:3000" })) // coba klo ini banh
+//////////////////////////////////////////////////////////////////
 
 // 4. Static files and Swagger setup
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const _dirname = path.dirname(_filename);
 const __swaggerDistPath = path.join(
   __dirname,
   "node_modules",
@@ -98,5 +102,5 @@ app.use("/creators", creatorRoutes);
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
-  console.log(`App listening on port ${process.env.PORT}!`);
+  console.log(`App listening on port ${ process.env.PORT }!`);
 });
