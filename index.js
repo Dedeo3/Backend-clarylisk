@@ -12,34 +12,39 @@ import { fileURLToPath } from "url";
 import creatorRoutes from "./routes/creatorRoutes.js";
 
 const app = express();
+
+// 1. Basic middleware
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(errorMiddleware);
+// 2. Debugging middleware
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin);
+  next();
+});
 
-const allowedOrigins = process.env.ALLOWED_CORS?.split(",") || [];
-
+// 3. CORS configuration
+const allowedOrigins = process.env.ALLOWED_CORS?.split(",") || ["http://localhost:3000"];
 const corsOptions = {
-    origin: function (origin, callback) {
-        // Allow requests without origin (e.g., Swagger or curl)
-        const isSwagger = !origin || origin.includes("swagger");
-        const isAllowed = allowedOrigins.includes(origin);
-
-        if (isSwagger || isAllowed) {
-            console.log("CORS Allowed:", origin || "No Origin (Swagger?)");
-            callback(null, true);
-        } else {
-            console.error("Blocked by CORS:", origin);
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: function (origin, callback) {
+    // Allow requests without origin (e.g., Swagger or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      console.log("CORS Allowed:", origin || "No Origin");
+      callback(null, true);
+    } else {
+      console.error("Blocked by CORS:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
 
+// Handle OPTIONS preflight requests
+app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
-//ADD STATIC SWAGGER
+// 4. Static files and Swagger setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __swaggerDistPath = path.join(
@@ -47,9 +52,9 @@ const __swaggerDistPath = path.join(
   "node_modules",
   "swagger-ui-dist"
 );
-app.use("/api-docs-clarylisk", express.static(__swaggerDistPath)); // Sajikan file statis Swagger
+app.use("/api-docs-clarylisk", express.static(__swaggerDistPath));
 
-// Konfigurasi Swagger
+// Swagger configuration
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
@@ -64,22 +69,33 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./routes/*.js"], // files containing annotations as above
+  apis: ["./routes/*.js"],
 };
 
-// app.use('/api-docs-clarylisk', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+// 5. CORS debugging endpoint
+app.get('/debug-cors', (req, res) => {
+  res.json({
+    requestOrigin: req.headers.origin || 'No origin',
+    allowedOrigins: process.env.ALLOWED_CORS?.split(",") || [],
+    nodeEnv: process.env.NODE_ENV,
+    allowedCorsEnv: process.env.ALLOWED_CORS
+  });
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// 6. API routes
 app.use("/api-docs-clarylisk", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 app.use("/user", userRoutes);
 app.use("/ai", aiRoutes);
 app.use("/creators", creatorRoutes);
+
+// 7. Error handling middleware - ALWAYS LAST
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
