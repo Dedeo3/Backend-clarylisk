@@ -50,9 +50,9 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" })) // coba kl
 
 // 4. Static files and Swagger setup
 const __filename = fileURLToPath(import.meta.url);
-const _dirname = path.dirname(_filename);
+const _dirname = path.dirname(__filename);
 const __swaggerDistPath = path.join(
-  __dirname,
+  _dirname,
   "node_modules",
   "swagger-ui-dist"
 );
@@ -111,6 +111,7 @@ app.use("/creators", creatorRoutes);
 
 // 7. Error handling middleware - ALWAYS LAST
 app.use(errorMiddleware);
+
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${ process.env.PORT }!`);
