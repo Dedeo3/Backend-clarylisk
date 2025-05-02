@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 // app.use(cors(corsOptions));
 
 ///////////////////////////////////////////////////////////////////
-app.use(cors({ credentials: true, origin: "http://localhost:3000" })) // coba klo ini banh
+app.use(cors({ credentials: true, origin: "*" })) // coba klo ini banh
 //////////////////////////////////////////////////////////////////
 
 // 4. Static files and Swagger setup
