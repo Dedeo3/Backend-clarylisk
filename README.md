@@ -14,13 +14,13 @@ npm run server or npm run dev
 
 ## Swagger
 
-### get /api-docs-clarylisk
+### get https://backend-clarylisk.vercel.app/api-docs-clarylisk/swagger.json
 - Description: Swagger API Documentation
 
 ## AI 
 
-### post /ai/ai-clarylisk
-request headers: token
+### post https://backend-clarylisk.vercel.app/ai/ai-clarylisk
+request headers: Bearer token
 request body:
 ```json
 {
@@ -50,12 +50,12 @@ response status 500:
 
 ## user
 
-### post /user/register
+### post https://backend-clarylisk.vercel.app/user/register
 request body:
 ```json
 {
     "username": "clarylisk",
-    "password": "clarylisk",
+    "password": "clarylis",
     "walletAddress":"oxjdoajdojajsf",
     "role":"creator",
     "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAA...",
@@ -86,12 +86,12 @@ response status 500:
 }
 ```
 
-### post user/login
+### post https://backend-clarylisk.vercel.app/user/login
 request body:
 ```json
 {
-    "walletAdress":"kafdsakljfdlkasfkda",
-    "password":"clarylisk"
+    "walletAddress":"oxjdoajdojajsf",
+    "password":"clarylis"
 }
 ```
 response status 200:
@@ -105,7 +105,7 @@ response status 500:
 }
 ```
 
-### get /user/profile
+### get https://backend-clarylisk.vercel.app/user/profile
 response status 200:
 ```json
 {
@@ -132,84 +132,61 @@ response status 200:
   ]
 }
 ```
-### delete user/logout/:idUser
-response status 200:
-revoke token
+
+### PATCH https://backend-clarylisk.vercel.app/user/profile
+req header: Bearer token 
+
+req:
 ```json
 {
-    "message": "success"
-}
-```
-response status 500:
-```json
-{
-    "error": "Internal Server Error"
+  "password": "string",
+  "walletAddress": "string",
+  "facebook": "string",
+  "twitter": "string",
+  "instagram": "string",
+  "youtube": "string",
+  "image": "string",
+  "description": "string",
+  "role": "string"
 }
 ```
 
-### get /listcreator
-request headers: cookie token
-response status 200:
+responde:
 ```json
 {
-    "data":[
-        {
-            "idUser":1,
-            "username":"username",
-            "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAA...",
-            "facebook":"optional",
-            "instagram":"optional",
-            "twitter":"optional",
-            "youtube":"optional",
-            "description":"blablaba",
-            "walletAddress":"kafdsakljfdlkasfkda",
-            "rating":5
-        },
-         {
-            "idUser":2,
-            "username":"username",
-            "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAA...",
-            "facebook":"optional",
-            "instagram":"optional",
-            "twitter":"optional",
-            "youtube":"optional",
-            "description":"blablaba",
-            "walletAddress":"kafdsakljfdlkasfkda",
-            "rating":5
-        }
-    ]
+  "message": "success update profile",
+  "data": {
+    "idUser": "string",
+    "username": "string",
+    "role": "string",
+    "description": "string",
+    "wallet": {
+      "walletAdress": "string"
+    },
+    "medsos": {
+      "facebook": "string",
+      "twitter": "string",
+      "instagram": "string",
+      "youtube": "string"
+    },
+    "image": {
+      "image": "string"
+    }
+  }
 }
-```
-response status 500:
-```json
-{
-    "error": "Internal Server Error"
-}
-```
 
-### get /listcreator/:idUser
-request headers: cookie token
-response status 200:
-```json
- {
-        "idUser":1,
-        "username":"username",
-        "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAA...",
-        "facebook":"optional",
-        "instagram":"optional",
-        "twitter":"optional",
-        "youtube":"optional",
-        "description":"blablaba",
-        "walletAddress":"kafdsakljfdlkasfkda",
-        "rating":5
-}
 ```
-response status 404:
-```json
-{
-    "error": "Not Found"
-}
-```
+### Logout
+curl -X POST https://backend-clarylisk.vercel.app/user/logout \
+  -H "Authorization: Bearer your_token_here" \
+  --cookie "access_token=your_token_here"
+
+### all creator
+GET https://backend-clarylisk.vercel.app/creators
+
+### list creator by id 
+GET https://backend-clarylisk.vercel.app/creators/:userId
+
 
 ### validation for rating
 if the creator take a donation that indicated judol so they rating will be minus 1
