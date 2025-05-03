@@ -88,7 +88,8 @@ export const creatorList = async (req, res, next) => {
 
 export const getCreatorById = async (req, res, next) => {
   try {
-    const userId = req.params.idUser;
+    const userId = req.params.userId;
+    console.log("user id req:", userId)
     const result = await getCreatorProfile(userId);
     res.status(200).json(result);
   } catch (err) {

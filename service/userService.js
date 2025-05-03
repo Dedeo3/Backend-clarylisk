@@ -198,7 +198,7 @@ export const getCreators = async () => {
 export const getCreatorProfile = async (id) => {
   const getData = await prisma.user.findFirst({
     where: {
-      idUser: id,
+      idUser: Number(id),
       role: "creator",
     },
     select: {
