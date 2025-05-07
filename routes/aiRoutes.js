@@ -63,6 +63,6 @@ import { aiPredict } from '../controller/aiController.js';
  *                   example: "Internal Server Error"
  */
 
-aiRoutes.post('/ai-clarylisk',validateToken, aiPredict)
+aiRoutes.post('/ai-clarylisk', aiPredict)
 
 export default aiRoutes

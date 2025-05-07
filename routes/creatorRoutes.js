@@ -4,6 +4,6 @@ import { validateToken } from "../middleware/middleware.js";
 const router = Router();
 
 router.get("/", creatorList);
-router.get("/:userId", validateToken, getCreatorById);
+router.get("/:userId", getCreatorById);
 
 export default router;
